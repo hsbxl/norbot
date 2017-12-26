@@ -6,7 +6,7 @@ from matrix_bot_api.mregex_handler import MRegexHandler
 from matrix_bot_api.mcommand_handler import MCommandHandler
 
 USERNAME = "norbert"  # Bot's username
-PASSWORD = "CLUBMATE2010"  # Bot's password
+PASSWORD = ""  # Bot's password
 SERVER = "https://hackerspace.be"  # Matrix server URL
 
 
