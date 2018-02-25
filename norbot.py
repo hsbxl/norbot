@@ -6,7 +6,7 @@ from matrix_bot_api.mregex_handler import MRegexHandler
 from matrix_bot_api.mcommand_handler import MCommandHandler
 
 USERNAME = "norbot"  # Bot's username
-PASSWORD = ""  # Bot's password
+PASSWORD = "CLUBMATE2010"  # Bot's password
 SERVER = "https://hackerspace.be"  # Matrix server URL
 
 
@@ -14,13 +14,17 @@ def troll_callback(room, event):
     args = event['content']['body'].split()
     args.pop(0)
     sentence = "SPEAK="+" ".join(args)
-
+    print(sentence)
     url = "http://hal9000.space.hackerspace.be/cgi-bin/sounds.sh"
+    room.send_text("They see me Trolling")
     r = requests.post(url, data=sentence)
-    room.send_text("🎶 They see me Trolling 🎶")
 
-def hours_callback(room, event):
-    message = "We have our weekly TechTuesday every Tuesday evening. This night the space is open for everyone, members and visitors."
+def visit_callback(room, event):
+    message = "Visit? Every Tuesday evening we have our weekly TechTuesday, and the space is open for everyone. \nWe have cookies."
+    room.send_text(message)
+
+def noms_callback(room, event):
+    message = "We are getting noms. Who joins? \nI'll take a currywurst please."
     room.send_text(message)
 
 def hi_callback(room, event):
@@ -58,7 +62,7 @@ def main():
     bot = MatrixBotAPI(USERNAME, PASSWORD, SERVER)
 
     # Add a regex handler waiting for the word Hi
-    hi_handler = MRegexHandler("Hi", hi_callback)
+    hi_handler = MRegexHandler("hi", hi_callback)
     bot.add_handler(hi_handler)
 
     # Add a regex handler waiting for the die roll command
@@ -69,9 +73,13 @@ def main():
     troll_handler = MCommandHandler("troll", troll_callback)
     bot.add_handler(troll_handler)
 
-    # Add a regex handler waiting for the hours command
-    hours_handler = MCommandHandler("hours", hours_callback)
-    bot.add_handler(hours_handler)
+    # Add a regex handler waiting for the visit command
+    visit_handler = MCommandHandler("visit", visit_callback)
+    bot.add_handler(visit_handler)
+
+    # Add a regex handler waiting for the noms command
+    noms_handler = MCommandHandler("noms", noms_callback)
+    bot.add_handler(noms_handler)
 
     # Start polling
     bot.start_polling()
